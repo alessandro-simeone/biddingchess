@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+#chess-board {
+    display: grid;
+    grid-template-columns: repeat(8, 60px);
+    grid-template-rows: repeat(8, 60px);
+    gap: 0;
+    border: 2px solid #333;
+}
+
+#chess-board .square {
+    width: 60px;
+    height: 60px;
+}
+
+#chess-board .square.white {
+    background-color: #f0d9b5;
+}
+
+#chess-board .square.black {
+    background-color: #b58863;
+}
+
+#chess-board .piece {
+    font-size: 48px;
+    text-align: center;
+    line-height: 60px;
+}
+
+#game-info {
+    margin-top: 20px;
+}
+
+button, select {
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+}
