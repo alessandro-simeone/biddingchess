@@ -10,7 +10,7 @@ let board = [
 ];
 
 let currentPlayer = 'white';
-let stockfish = new Worker('stockfish.js'); // Carica Stockfish come Web Worker
+
 
 document.addEventListener('DOMContentLoaded', () => {
     drawBoard();
@@ -56,14 +56,21 @@ function changePlayerColor() {
     restartGame();
 }
 
-function makeMove(move) {
-    // Aggiorna la scacchiera con la mossa del giocatore
-    // ...
-    drawBoard();
-    if (currentPlayer !== 'black') {  // Se è il turno del computer
-        stockfish.postMessage('position fen ' + boardToFen());
-        stockfish.postMessage('go depth 15');
+let stockfish = new Worker('stockfish.js');
+
+stockfish.onmessage = function(event) {
+    const bestMove = parseBestMove(event.data);
+    if (bestMove) {
+        // Esegui la mossa del computer sulla scacchiera
+        console.log("Mossa del computer:", bestMove);
+        // Codice per aggiornare la scacchiera
     }
+};
+
+function makeMove(move) {
+    // Codice per gestire la mossa del giocatore
+    stockfish.postMessage('position fen ' + boardToFen());
+    stockfish.postMessage('go depth 15');
 }
 
 stockfish.onmessage = function(event) {
